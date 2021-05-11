@@ -16,6 +16,7 @@ class CreateBookingsTable extends Migration
             $table->dateTime('date');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

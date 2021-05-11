@@ -13,6 +13,18 @@ class Doctor extends Model
     const AGENDA_DOCTOLIB = 'doctolib';
     const AGENDA_CLICRDV = 'clicrdv';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'agenda',
+        'external_agenda_id',
+    ];
+
     public function availabilities()
     {
         return $this->hasMany(Availability::class);

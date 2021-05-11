@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,28 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::resource('doctor', 'App\Http\Controllers\DoctorController')
+    ->only([
+        'index',
+        ]);
+
+Route::get('doctor/{id}/availabilities', 'App\Http\Controllers\AvailabilityController@index')
+    ->name('availability.index');
+
+Route::resource('booking', 'App\Http\Controllers\BookingController')
+    ->only([
+        'index',
+        'store',
+        ])
+    ->middleware('auth');
+
+Route::get('booking/{id}/cancel', 'App\Http\Controllers\BookingController@destroy')
+    ->name('booking.destroy');
+
 
 require __DIR__.'/auth.php';
